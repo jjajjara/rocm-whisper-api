@@ -1,0 +1,28 @@
+# 실행할 서비스(컨테이너)들을 정의합니다.
+services:
+  # 서비스의 논리적인 이름
+  rocm-whisper-api-service:
+    # 사용할 Docker 이미지의 이름과 태그입니다.
+    # 이 설정은 'docker build -t rocm-whisper-api:latest .' 명령어로
+    # 이미지가 미리 빌드되어 있다고 가정합니다.
+    image: rocm-whisper-api:1.1.0
+    # 실행될 컨테이너의 이름을 'rocm-whisper-api'로 고정합니다.
+    container_name: rocm-whisper-api
+    # 컨테이너가 중지(예: 재부팅)될 경우, 수동으로 멈추지 않는 한 항상 다시 시작합니다.
+    restart: unless-stopped
+    # 호스트와 컨테이너의 포트를 연결합니다. (호스트:컨테이너)
+    ports:
+      - "8080:8080"
+    # 컨테이너 내부에서 사용할 환경 변수를 설정합니다.
+    environment:
+      - HSA_OVERRIDE_GFX_VERSION=11.0.0
+      - WHISPER_MODEL=base
+    # 호스트의 GPU 장치를 컨테이너에 연결합니다.
+    devices:
+      - "/dev/kfd:/dev/kfd"
+      - "/dev/dri:/dev/dri"
+    # (선택 사항) 모델 캐시를 위한 볼륨 설정입니다.
+    # 다운로드한 모델을 호스트 PC에 저장하여 재시작 시 다운로드를 방지하려면 아래 주석을 해제하세요.
+    # volumes:
+    #   - ~/.cache/whisper:/root/.cache/whisper
+

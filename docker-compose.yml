@@ -5,7 +5,7 @@ services:
     # 사용할 Docker 이미지의 이름과 태그입니다.
     # 이 설정은 'docker build -t rocm-whisper-api:latest .' 명령어로
     # 이미지가 미리 빌드되어 있다고 가정합니다.
-    image: rocm-whisper-api:1.1.0
+    image: jjajjara/rocm-whisper-api:latest
     # 실행될 컨테이너의 이름을 'rocm-whisper-api'로 고정합니다.
     container_name: rocm-whisper-api
     # 컨테이너가 중지(예: 재부팅)될 경우, 수동으로 멈추지 않는 한 항상 다시 시작합니다.
